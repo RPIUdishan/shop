@@ -4,15 +4,18 @@ public class ProductDetails {
     private String title;
     private String images;
     private String price;
-    private int rating;
+    private String rating;
     private String description;
 
-    public ProductDetails(String title, String images, String price, int rating, String description) {
+    public ProductDetails(String title, String images, String price, String rating, String description) {
         this.title = title;
         this.images = images;
         this.price = price;
         this.rating = rating;
         this.description = description;
+    }
+
+    public ProductDetails() {
     }
 
     public String getTitle() {
@@ -39,11 +42,11 @@ public class ProductDetails {
         this.price = price;
     }
 
-    public int getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 

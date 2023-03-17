@@ -23,8 +23,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.shop.DetailsActivity;
 import com.example.shop.R;
 import com.example.shop.model.Product;
+import com.example.shop.model.ProductDetails;
 import com.example.shop.utilis.VolleySingleton;
 
 import org.json.JSONArray;
@@ -35,40 +37,41 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductView> {
-//    public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
-        private RequestQueue requestQueue;
-        private Context context;
-        private List<Product> productList;
+    //    public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
+    private RequestQueue requestQueue;
+    private Context context;
+    private List<Product> productList;
 
-        public ProductAdapter(Context context , List<Product> products){
-            this.context = context;
-            productList = products;
-            Log.d("Size", String.valueOf(products.size()));
-        }
-        @NonNull
-        @Override
-        public ProductAdapter.ProductView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.product_item , parent , false);
-            return new ProductView(view);
-        }
+    public ProductAdapter(Context context, List<Product> products) {
+        this.context = context;
+        productList = products;
+        Log.d("Size", String.valueOf(products.size()));
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull ProductView holder, int position) {
+    @NonNull
+    @Override
+    public ProductAdapter.ProductView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
+        return new ProductView(view);
+    }
 
-            Product product = productList.get(position);
+    @Override
+    public void onBindViewHolder(@NonNull ProductView holder, int position) {
+
+        Product product = productList.get(position);
 //            holder.rating.setText(movie.getRating().toString());
-            holder.title.setText(product.getTitle());
+        holder.title.setText(product.getTitle());
 //            holder.overview.setText(movie.getOverview());
-            Glide.with(context).load(product.getUrl()).into(holder.imageView);
+        Glide.with(context).load(product.getUrl()).into(holder.imageView);
 
-            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                    Intent intent = new Intent(context , DetailActivity.class);
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("title" , product.getTitle());
-                    Log.d("dfsdf", product.getTitle());
+                Bundle bundle = new Bundle();
+                bundle.putString("title", product.getTitle());
+                Log.d("dfsdf", product.getTitle());
 //                    bundle.putString("overview" , movie.getOverview());
 //                    bundle.putString("poster" , movie.getPoster());
 //                    bundle.putDouble("rating" , movie.getRating());
@@ -76,32 +79,50 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 //                    intent.putExtras(bundle);
 
 //                    context.startActivity(intent);
-                    requestQueue = VolleySingleton.getmInstance(context).getRequestQueue();
-                    String url = "https://59b8726e92ccc3eb44b0c193eeef96f6.m.pipedream.net/featured";
-                    Log.d("!!!xxx!>>>",v.getContext().toString());
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                requestQueue = VolleySingleton.getmInstance(context).getRequestQueue();
+                String url = "https://59b8726e92ccc3eb44b0c193eeef96f6.m.pipedream.net/featured";
+                Log.d("!!!xxx!>>>", v.getContext().toString());
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    String date = null;
-                                    try {
-                                        date = response.getString("title");
-                                        Log.d("Res", date);
-                                    } catch (JSONException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                            @Override
+                            public void onResponse(JSONObject response) {
 
+                                try {
+                                    String title = response.getString("title");
+                                    String images = response.getString("images");
+                                    String price = response.getString("price");
+                                    String rating = response.getString("rating");
+                                    String description = response.getString("description");
+
+                                    ProductDetails productDetails = new ProductDetails(title, images, price, rating, description);
+                    Intent intent = new Intent(context , DetailsActivity.class);
+
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("title", response.getString("title"));
+                                    bundle.putString("images", response.getString("images"));
+                                    bundle.putString("price" , response.getString("price"));
+                                    bundle.putString("rating" , response.getString("rating"));
+                                    bundle.putString("description" , response.getString("description"));
+
+                    intent.putExtras(bundle);
+
+                    context.startActivity(intent);
+//                                        Log.d("Res", date);
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
                                 }
-                            }, new Response.ErrorListener() {
 
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // TODO: Handle error
+                            }
+                        }, new Response.ErrorListener() {
 
-                                }
-                            });
-                    requestQueue.add(jsonObjectRequest);
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // TODO: Handle error
+
+                            }
+                        });
+                requestQueue.add(jsonObjectRequest);
 //                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
 //                            new Response.Listener<JSONArray>() {
 //                                @Override
@@ -144,31 +165,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
 //                    requestQueue.add(jsonArrayRequest);
 
-                }
-            });
+            }
+        });
 
-        }
+    }
 
-        @Override
-        public int getItemCount() {
-            return productList.size();
-        }
+    @Override
+    public int getItemCount() {
+        return productList.size();
+    }
 
-        public class ProductView extends RecyclerView.ViewHolder{
+    public class ProductView extends RecyclerView.ViewHolder {
 
-            ImageView imageView;
-            TextView title , overview , rating;
-            ConstraintLayout constraintLayout;
+        ImageView imageView;
+        TextView title, overview, rating;
+        ConstraintLayout constraintLayout;
 
-            public ProductView(@NonNull View itemView) {
-                super(itemView);
+        public ProductView(@NonNull View itemView) {
+            super(itemView);
 
-                title = itemView.findViewById(R.id.product_text_view);
-                imageView = itemView.findViewById(R.id.product_image);
+            title = itemView.findViewById(R.id.product_text_view);
+            imageView = itemView.findViewById(R.id.product_image);
 
 //                overview = itemView.findViewById(R.id.overview_tv);
 //                rating = itemView.findViewById(R.id.rating);
-                constraintLayout = itemView.findViewById(R.id.product_layout);
-            }
+            constraintLayout = itemView.findViewById(R.id.product_layout);
         }
     }
+}
