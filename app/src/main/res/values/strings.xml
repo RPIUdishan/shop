@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">shop</string>
+<!--    <string name="title_home">Home</string>-->
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!--:::::::::::::::::::::::-->
+    <string name="title_home">Home</string>
+    <string name="title_share">Share</string>
+    <string name="title_favourite">Favourites</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="product_title">Product</string>
+
+    <string name="topic">Enjoy the world \ninto virtual reality</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
