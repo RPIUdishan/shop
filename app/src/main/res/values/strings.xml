@@ -11,8 +11,19 @@
     <string name="title_profile">Profile</string>
 
     <string name="product_title">Product</string>
+    <string name="product_price">$ 62.88</string>
+    <string name="reviews">5 (28 Reviews)</string>
+    <string name="desc">Description</string>
+
+    <string name="optics">Improved Optics</string>
+    <string name="sunny">Clear Brightness</string>
+    <string name="wifi">WIFI Controllers</string>
+
+    <string name="checkout">Checkout</string>
+    <string name="buy">Buy Now</string>
 
     <string name="topic">Enjoy the world \ninto virtual reality</string>
+    <string name="poster">Improved Controller \nDesign With \nVirtual Reality</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

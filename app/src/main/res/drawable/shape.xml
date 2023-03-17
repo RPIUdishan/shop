@@ -11,8 +11,8 @@
             android:bottomLeftRadius="20dp" />
 
         <size
-            android:width="300dp"
-            android:height="200dp" />
+            android:width="500dp"
+            android:height="300dp" />
 
         <stroke
             android:width="2dp"

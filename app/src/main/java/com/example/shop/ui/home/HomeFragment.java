@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,9 +21,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.bumptech.glide.Glide;
 import com.example.shop.Adapters.CategoryAdapter;
 import com.example.shop.Adapters.ProductAdapter;
-import com.example.shop.MainActivity;
 import com.example.shop.R;
 import com.example.shop.databinding.FragmentHomeBinding;
 import com.example.shop.model.Product;
@@ -56,6 +54,8 @@ public class HomeFragment extends Fragment {
 
     RecyclerView recyclerViewProduct;
 
+    String vrImageUrl = "https://i.im.ge/2023/03/18/D6kPI6.Pico-G2-4k-hero2-234-removebg-preview.png";
+
     @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
@@ -73,7 +73,10 @@ public class HomeFragment extends Fragment {
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         final RecyclerView categoryRecyclerView  = binding.categoryRecyclerView;
         final RecyclerView recyclerViewProduct = binding.productRecyclerView;
+        final ImageView vrImage = binding.vrImage;
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        Glide.with(this.requireContext()).load(vrImageUrl).into(vrImage);
 
         recyclerView = view.findViewById(R.id.categoryRecyclerView);
 
@@ -84,6 +87,8 @@ public class HomeFragment extends Fragment {
         list.add("Expensive");
 
 //        recyclerView = (RecyclerView)findViewById( R.id.recyclerview);
+
+
         RecyclerViewLayoutManager
                 = new LinearLayoutManager(getContext());
 
