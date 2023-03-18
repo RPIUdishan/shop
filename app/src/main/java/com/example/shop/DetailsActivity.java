@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,18 +27,20 @@ public class DetailsActivity extends AppCompatActivity {
         TextView priceView = findViewById(R.id.price_text_view);
         TextView descView = findViewById(R.id.description);
         ImageButton imageButton = findViewById(R.id.back_button);
-
+        RatingBar ratingBar = findViewById(R.id.rating);
 
         Intent i = getIntent();
         String title = i.getStringExtra("title");
         String imageUrl = i.getStringExtra("images");
         String price = i.getStringExtra("price");
         String description = i.getStringExtra("description");
+        float newRating =  Float.parseFloat(i.getStringExtra("rating"));
 
         Glide.with(getApplicationContext()).load(imageUrl).into(image);
         tv.setText(title);
         priceView.setText(price);
         descView.setText(description);
+        ratingBar.setRating(newRating);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
