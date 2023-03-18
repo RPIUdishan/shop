@@ -83,6 +83,7 @@ public class HomeFragment extends Fragment {
         List<String> list =  new ArrayList<>();
         list.add("All Products");
         list.add("Popular");
+        list.add("Latest");
         list.add("Recent");
         list.add("Expensive");
 
@@ -114,7 +115,7 @@ public class HomeFragment extends Fragment {
         // Set adapter on recycler view
 //        recyclerView.setAdapter(adapter);
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(list);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(list,getContext());
         categoryRecyclerView.setAdapter(categoryAdapter);
 //        RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
 
