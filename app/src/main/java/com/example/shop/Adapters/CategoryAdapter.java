@@ -24,33 +24,33 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     List<String> categorySet;
     Context context;
     TextView categoryText;
-    int selectedPosition = 0; // variable to store the selected position
+    int selectedPosition = 0;
 
-    public CategoryAdapter(List<String>  dataSet, Context context) {
+    public CategoryAdapter(List<String> dataSet, Context context) {
         this.categorySet = dataSet;
         this.context = context;
     }
 
-     class CategoryView extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    class CategoryView extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-         public CategoryView(@NonNull View itemView) {
-             super(itemView);
+        public CategoryView(@NonNull View itemView) {
+            super(itemView);
 
-             categoryText = (TextView) itemView.findViewById(R.id.categoryTextView);
-             itemView.setOnClickListener(this); // set click listener on itemView
-         }
+            categoryText = (TextView) itemView.findViewById(R.id.categoryTextView);
+            itemView.setOnClickListener(this); // set click listener on itemView
+        }
 
-         public TextView getTextView() {
-             return categoryText;
-         }
+        public TextView getTextView() {
+            return categoryText;
+        }
 
-         @Override
-         public void onClick(View v) {
-             selectedPosition = getAdapterPosition(); // update selected position
-             Log.d("1111111111", String.valueOf(selectedPosition));
-             notifyDataSetChanged(); // notify adapter of data change
-         }
-     }
+        @Override
+        public void onClick(View v) {
+            selectedPosition = getAdapterPosition(); // update selected position
+            Log.d("1111111111", String.valueOf(selectedPosition));
+            notifyDataSetChanged(); // notify adapter of data change
+        }
+    }
 
     @NonNull
     @Override
